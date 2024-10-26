@@ -11,14 +11,14 @@ const donHangRoute = require("./routes/donHang");
 const gioHangRoute = require("./routes/gioHang");
 const khachHangRoute = require("./routes/khachHang");
 const nhaCungCapRoute = require("./routes/nhaCungCap");
-const nhanVienRoute = require("./routes/nhanVien");
+// const nhanVienRoute = require("./routes/nhanvien");
 const roleRoute = require("./routes/role");
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 dotenv.config();
 
 // Kết nối tới MongoDB Atlas
-const uri = process.env.MONGODB_URL;
+const uri = process.env.MONGODB_URL;    
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -56,7 +56,7 @@ app.use("/api/donhang", donHangRoute(client));
 app.use("/api/giohang", gioHangRoute(client));
 app.use("/api/khachhang", khachHangRoute(client));
 app.use("/api/nhacungcap", nhaCungCapRoute(client));
-app.use("/api/nhanvien", nhanVienRoute(client));
+// app.use("/api/nhanvien", nhanVienRoute(client));
 app.use("/api/role", roleRoute(client));
 
 const PORT = process.env.PORT || 3000;

@@ -1,6 +1,5 @@
-// routes/nhanVien.js
-const express = require("express");
 const nhanVienController = require("../controllers/nhanVienController");
+const express = require("express");
 const router = express.Router();
 
 module.exports= (client) => {
