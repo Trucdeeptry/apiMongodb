@@ -63,9 +63,9 @@ const nhaCungCapSchema = {
 const nhanVienSchema = {
     ma_nv: String,
     ten_nv: String,
-    email: String,
     so_dien_thoai: String,
     dia_chi: String,
+    gioi_tinh: String,
     chuc_vu: String,
 };
 
