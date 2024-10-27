@@ -9,6 +9,7 @@ const sanphamSchema = {
     ma_dm: String,
     ma_ncc: String,
     mo_ta: String,
+    img: String,
 };
 
 const chiTietDonHangSchema = {
