@@ -1,5 +1,3 @@
-// models.js
-
 const sanphamSchema = {
     ma_sp: String,
     ten_sp: String,
@@ -31,11 +29,10 @@ const danhMucSchema = {
 
 const donHangSchema = {
     ma_dh: String,
-    ngay_dat_hang: Date ,
+    ma_kh: String, // Mã khách hàng
+    ngay_dat: Date,
     tong_tien: Number,
     trang_thai: String,
-    ghi_chu: String,
-    ma_kh: String, 
 };
 
 const gioHangSchema = {
