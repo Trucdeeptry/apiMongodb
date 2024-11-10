@@ -4,7 +4,7 @@ const khachHangController = require("../controllers/khachHangController");
 const router = express.Router();
 
 module.exports = (client) => {
-    router.get("/", (req, res) => khachHangController.getAllNhaKhachHang(req, res, client));
+    router.get("/", (req, res) => khachHangController.getAllKhachHang(req, res, client));
     router.post("/", (req, res) => khachHangController.addNhaKhachHang(req, res, client));
 
     // Update a product by ma_sp
