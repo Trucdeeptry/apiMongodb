@@ -30,6 +30,7 @@ const sanphamController = {
             const db = client.db("QL_OCake");
             const { _id  } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
+            delete updatedData._id;
             const objectId = new ObjectId(_id)
             const result = await db.collection("SanPham").updateOne(
                 { _id: objectId  },
