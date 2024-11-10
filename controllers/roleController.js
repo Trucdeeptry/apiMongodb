@@ -26,10 +26,10 @@ const roleController = {
     updateRole: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_role } = req.params; // Assumes the id is passed as a URL parameter
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
             const result = await db.collection("Role").updateOne(
-                { ma_role: ma_role },
+                { _id: _id },
                 { $set: updatedData }
             );
 
@@ -47,8 +47,8 @@ const roleController = {
     deleteRole: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_role } = req.params; // Assumes the id is passed as a URL parameter
-            const result = await db.collection("Role").deleteOne({ ma_role: ma_role });
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("Role").deleteOne({ _id: _id });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "Role not found" });

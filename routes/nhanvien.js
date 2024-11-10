@@ -8,10 +8,10 @@ module.exports= (client) => {
     router.post("/", (req, res) => nhanVienController.addNhanVien(req, res, client));
 
     // Update a product by ma_sp
-    router.put("/:ma_nv", (req, res) => nhanVienController.updateNhanVien(req, res, client));
+    router.put("/:_id", (req, res) => nhanVienController.updateNhanVien(req, res, client));
 
     // Delete a product by ma_sp
-    router.delete("/:ma_nv", (req, res) => nhanVienController.deleteNhanVien(req, res, client));
+    router.delete("/:_id", (req, res) => nhanVienController.deleteNhanVien(req, res, client));
     return router;
 };
 

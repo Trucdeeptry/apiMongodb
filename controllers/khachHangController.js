@@ -25,10 +25,10 @@ const khachHangController = {
     updateKhachHang: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_kh } = req.params; // Assumes the id is passed as a URL parameter
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
             const result = await db.collection("KhachHang").updateOne(
-                { ma_kh: ma_kh },
+                { _id: _id },
                 { $set: updatedData }
             );
 
@@ -46,8 +46,8 @@ const khachHangController = {
     deleteKhachHang: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_kh } = req.params; // Assumes the id is passed as a URL parameter
-            const result = await db.collection("KhachHang").deleteOne({ ma_kh: ma_kh  });
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("KhachHang").deleteOne({ _id: _id  });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "KhachHang not found" });

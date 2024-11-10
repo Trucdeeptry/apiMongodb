@@ -8,10 +8,10 @@ module.exports = (client) => {
     router.post("/", (req, res) => donHangController.addDonHang(req, res, client));
 
     // Update a product by ma_sp
-    router.put("/:ma_dh", (req, res) => donHangController.updateDonHang(req, res, client));
+    router.put("/:_id", (req, res) => donHangController.updateDonHang(req, res, client));
 
     // Delete a product by ma_sp
-    router.delete("/:ma_dh", (req, res) => donHangController.deleteDonHang(req, res, client));
+    router.delete("/:_id", (req, res) => donHangController.deleteDonHang(req, res, client));
     return router;
 };
 

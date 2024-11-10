@@ -25,10 +25,10 @@ const nhanVienController = {
     updateNhanVien: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_nv } = req.params; // Assumes the id is passed as a URL parameter
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
             const result = await db.collection("NhanVien").updateOne(
-                { ma_nv: ma_nv },
+                { _id: _id },
                 { $set: updatedData }
             );
 
@@ -46,8 +46,8 @@ const nhanVienController = {
     deleteNhanVien: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_nv } = req.params; // Assumes the id is passed as a URL parameter
-            const result = await db.collection("NhanVien").deleteOne({ ma_nv:ma_nv });
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("NhanVien").deleteOne({ _id:_id });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "NhanVien not found" });

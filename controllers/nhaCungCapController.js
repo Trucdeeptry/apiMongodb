@@ -25,10 +25,10 @@ const nhaCungCapController = {
     updateNhaCungCap: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_ncc } = req.params; // Assumes the id is passed as a URL parameter
+            const {_id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
             const result = await db.collection("NhaCungCap").updateOne(
-                { ma_ncc: ma_ncc },
+                {_id:_id },
                 { $set: updatedData }
             );
 
@@ -46,8 +46,8 @@ const nhaCungCapController = {
     deleteNhaCungCap: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_ncc } = req.params; // Assumes the id is passed as a URL parameter
-            const result = await db.collection("NhaCungCap").deleteOne({ ma_ncc: ma_ncc });
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("NhaCungCap").deleteOne({_id:_id });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "NhaCungCap not found" });

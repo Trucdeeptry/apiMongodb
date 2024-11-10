@@ -28,10 +28,10 @@ const sanphamController = {
     updateSanPham: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_sp  } = req.params; // Assumes the id is passed as a URL parameter
+            const { _id  } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
             const result = await db.collection("SanPham").updateOne(
-                { ma_sp: ma_sp  },
+                { _id: _id  },
                 { $set: updatedData }
             );
 
@@ -49,8 +49,8 @@ const sanphamController = {
     deleteSanPham: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { id } = req.params; // Assumes the id is passed as a URL parameter
-            const result = await db.collection("SanPham").deleteOne({ ma_sp: ma_sp });
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("SanPham").deleteOne({ _id: _id });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "Product not found" });

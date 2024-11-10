@@ -25,10 +25,10 @@ const donHangController = {
     updateDonHang: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_dh } = req.params; // Assumes the id is passed as a URL parameter
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
             const result = await db.collection("DonHang").updateOne(
-                { ma_dh: ma_dh },
+                { _id: _id },
                 { $set: updatedData }
             );
 
@@ -46,8 +46,8 @@ const donHangController = {
     deleteDonHang: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_dh } = req.params; // Assumes the id is passed as a URL parameter
-            const result = await db.collection("DonHang").deleteOne({ ma_dh: ma_dh });
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("DonHang").deleteOne({ _id: _id });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "DonHang not found" });

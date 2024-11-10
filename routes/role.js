@@ -11,9 +11,9 @@ module.exports = (client) => {
     router.post("/", (req, res) => roleController.addRole(req, res, client));
 
     // Update a product by ma_sp
-    router.put("/:ma_role", (req, res) => roleController.updateRole(req, res, client));
+    router.put("/:_id", (req, res) => roleController.updateRole(req, res, client));
 
     // Delete a product by ma_sp
-    router.delete("/:ma_role", (req, res) => roleController.deleteRole(req, res, client));
+    router.delete("/:_id", (req, res) => roleController.deleteRole(req, res, client));
     return router;
 };

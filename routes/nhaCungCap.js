@@ -8,10 +8,10 @@ module.exports = (client) => {
     router.post("/", (req, res) => nhaCungCapController.addNhaCungCap(req, res, client));
 
     // Update a product by ma_sp
-    router.put("/:ma_ncc", (req, res) => nhaCungCapController.updateNhaCungCap(req, res, client));
+    router.put("/:_id", (req, res) => nhaCungCapController.updateNhaCungCap(req, res, client));
 
     // Delete a product by ma_sp
-    router.delete("/:ma_ncc", (req, res) => nhaCungCapController.deleteNhaCungCap(req, res, client));
+    router.delete("/:_id", (req, res) => nhaCungCapController.deleteNhaCungCap(req, res, client));
     return router;
 };
 

@@ -8,10 +8,10 @@ module.exports = (client) => {
     router.post("/", (req, res) => danhMucController.addDanhMuc(req, res, client));
 
     // Update a product by ma_sp
-    router.put("/:ma_dm", (req, res) => danhMucController.updateDanhMuc(req, res, client));
+    router.put("/:_id", (req, res) => danhMucController.updateDanhMuc(req, res, client));
 
     // Delete a product by ma_sp
-    router.delete("/:ma_dm", (req, res) => danhMucController.deleteDanhMuc(req, res, client));
+    router.delete("/:_id", (req, res) => danhMucController.deleteDanhMuc(req, res, client));
     return router;
 };
 

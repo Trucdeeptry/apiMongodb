@@ -26,10 +26,10 @@ const chiTietDonHangController = {
     updateChiTietDonHang: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_dh } = req.params; // Assumes the id is passed as a URL parameter
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
             const result = await db.collection("ChiTietDonHang").updateOne(
-                { ma_dh: ma_dh },
+                { _id: _id },
                 { $set: updatedData }
             );
 
@@ -47,8 +47,8 @@ const chiTietDonHangController = {
     deleteChiTietDonHang: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const { ma_dh } = req.params; // Assumes the id is passed as a URL parameter
-            const result = await db.collection("ChiTietDonHang").deleteOne({ ma_dh: ma_dh });
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("ChiTietDonHang").deleteOne({ _id: _id });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "ChiTietDonHang not found" });
