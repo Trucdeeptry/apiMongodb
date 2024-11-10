@@ -28,8 +28,10 @@ const danhMucController = {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
+            const objectId = new ObjectId(_id)
+
             const result = await db.collection("DanhMuc").updateOne(
-                { _id: _id },
+                { _id: objectId },
                 { $set: updatedData }
             );
 
@@ -48,7 +50,9 @@ const danhMucController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const result = await db.collection("DanhMuc").deleteOne({ _id: _id });
+            const objectId = new ObjectId(_id)
+
+            const result = await db.collection("DanhMuc").deleteOne({ _id: objectId });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "DanhMuc not found" });
