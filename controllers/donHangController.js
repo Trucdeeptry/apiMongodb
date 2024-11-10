@@ -9,6 +9,55 @@ const donHangController = {
             res.status(500).json({ error: err.message });
         }
     },
+    // Add a new DonHang
+    addDonHang: async (req, res, client) => {
+        try {
+            const db = client.db("QL_OCake");
+            const newDonHang = req.body;
+            const result = await db.collection("DonHang").insertOne(newDonHang);
+            res.status(201).json({ message: "Product added successfully", result });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    },
+
+    // Update an existing DonHang
+    updateDonHang: async (req, res, client) => {
+        try {
+            const db = client.db("QL_OCake");
+            const { ma_dh } = req.params; // Assumes the id is passed as a URL parameter
+            const updatedData = req.body;
+            const result = await db.collection("DonHang").updateOne(
+                { ma_dh: ma_dh },
+                { $set: updatedData }
+            );
+
+            if (result.matchedCount === 0) {
+                return res.status(404).json({ message: "DonHang not found" });
+            }
+
+            res.status(200).json({ message: "DonHangupdated successfully", result });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    },
+
+    // Delete a DonHang
+    deleteDonHang: async (req, res, client) => {
+        try {
+            const db = client.db("QL_OCake");
+            const { ma_dh } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("DonHang").deleteOne({ ma_dh: ma_dh });
+
+            if (result.deletedCount === 0) {
+                return res.status(404).json({ message: "DonHang not found" });
+            }
+
+            res.status(200).json({ message: "DonHangdeleted successfully", result });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }
 };
 
 module.exports = donHangController;

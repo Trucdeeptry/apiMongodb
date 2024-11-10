@@ -11,6 +11,56 @@ const sanphamController = {
             res.status(500).json({ error: err.message });
         }
     },
+    
+    // Add a new sanpham
+    addSanPham: async (req, res, client) => {
+        try {
+            const db = client.db("QL_OCake");
+            const newSanPham = req.body;
+            const result = await db.collection("SanPham").insertOne(newSanPham);
+            res.status(201).json({ message: "Product added successfully", result });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    },
+
+    // Update an existing sanpham
+    updateSanPham: async (req, res, client) => {
+        try {
+            const db = client.db("QL_OCake");
+            const { ma_sp  } = req.params; // Assumes the id is passed as a URL parameter
+            const updatedData = req.body;
+            const result = await db.collection("SanPham").updateOne(
+                { ma_sp: ma_sp  },
+                { $set: updatedData }
+            );
+
+            if (result.matchedCount === 0) {
+                return res.status(404).json({ message: "Product not found" });
+            }
+
+            res.status(200).json({ message: "Product updated successfully", result });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    },
+
+    // Delete a sanpham
+    deleteSanPham: async (req, res, client) => {
+        try {
+            const db = client.db("QL_OCake");
+            const { id } = req.params; // Assumes the id is passed as a URL parameter
+            const result = await db.collection("SanPham").deleteOne({ ma_sp: ma_sp });
+
+            if (result.deletedCount === 0) {
+                return res.status(404).json({ message: "Product not found" });
+            }
+
+            res.status(200).json({ message: "Product deleted successfully", result });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }
 };
 
 module.exports = sanphamController;
