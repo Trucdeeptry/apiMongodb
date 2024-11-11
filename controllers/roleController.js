@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 const roleController = {
     getAllRole: async (req, res, client) => {
         try {
@@ -9,7 +9,7 @@ const roleController = {
             res.status(500).json({ error: err.message });
         }
     },
-    
+
     // Add a new Role
     addRole: async (req, res, client) => {
         try {
@@ -28,12 +28,12 @@ const roleController = {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
-            const objectId = new ObjectId(_id)
+            delete updatedData._id;
+            const objectId = new ObjectId(_id);
 
-            const result = await db.collection("Role").updateOne(
-                { _id: objectId },
-                { $set: updatedData }
-            );
+            const result = await db
+                .collection("Role")
+                .updateOne({ _id: objectId }, { $set: updatedData });
 
             if (result.matchedCount === 0) {
                 return res.status(404).json({ message: "Role not found" });
@@ -50,7 +50,7 @@ const roleController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const objectId = new ObjectId(_id)
+            const objectId = new ObjectId(_id);
 
             const result = await db.collection("Role").deleteOne({ _id: objectId });
 
@@ -62,7 +62,7 @@ const roleController = {
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
-    }
+    },
 };
 
 module.exports = roleController;

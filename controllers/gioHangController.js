@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 const gioHangController = {
     getAllGioHang: async (req, res, client) => {
         try {
@@ -27,12 +27,13 @@ const gioHangController = {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
-            const objectId = new ObjectId(_id)
+            delete updatedData._id;
 
-            const result = await db.collection("GioHang").updateOne(
-                { _id: objectId },
-                { $set: updatedData }
-            );
+            const objectId = new ObjectId(_id);
+
+            const result = await db
+                .collection("GioHang")
+                .updateOne({ _id: objectId }, { $set: updatedData });
 
             if (result.matchedCount === 0) {
                 return res.status(404).json({ message: "GioHang not found" });
@@ -49,7 +50,7 @@ const gioHangController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const objectId = new ObjectId(_id)
+            const objectId = new ObjectId(_id);
 
             const result = await db.collection("GioHang").deleteOne({ _id: objectId });
 
@@ -61,7 +62,7 @@ const gioHangController = {
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
-    }
+    },
 };
 
 module.exports = gioHangController;

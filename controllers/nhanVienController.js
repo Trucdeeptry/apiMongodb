@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 const nhanVienController = {
     getAllNhanVien: async (req, res, client) => {
         try {
@@ -26,13 +26,14 @@ const nhanVienController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const objectId = new ObjectId(_id)
+            const objectId = new ObjectId(_id);
 
             const updatedData = req.body;
-            const result = await db.collection("NhanVien").updateOne(
-                { _id: objectId },
-                { $set: updatedData }
-            );
+            delete updatedData._id;
+
+            const result = await db
+                .collection("NhanVien")
+                .updateOne({ _id: objectId }, { $set: updatedData });
 
             if (result.matchedCount === 0) {
                 return res.status(404).json({ message: "NhanVien not found" });
@@ -49,8 +50,8 @@ const nhanVienController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const objectId = new ObjectId(_id)
-            const result = await db.collection("NhanVien").deleteOne({ _id:objectId });
+            const objectId = new ObjectId(_id);
+            const result = await db.collection("NhanVien").deleteOne({ _id: objectId });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "NhanVien not found" });
@@ -60,8 +61,7 @@ const nhanVienController = {
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
-    }
+    },
 };
-
 
 module.exports = nhanVienController;

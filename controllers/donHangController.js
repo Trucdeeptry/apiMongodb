@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 const donHangController = {
     getAllDonHang: async (req, res, client) => {
         try {
@@ -26,13 +26,14 @@ const donHangController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const objectId = new ObjectId(_id)
+            const objectId = new ObjectId(_id);
 
             const updatedData = req.body;
-            const result = await db.collection("DonHang").updateOne(
-                { _id: objectId },
-                { $set: updatedData }
-            );
+            delete updatedData._id;
+
+            const result = await db
+                .collection("DonHang")
+                .updateOne({ _id: objectId }, { $set: updatedData });
 
             if (result.matchedCount === 0) {
                 return res.status(404).json({ message: "DonHang not found" });
@@ -49,7 +50,7 @@ const donHangController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const objectId = new ObjectId(_id)
+            const objectId = new ObjectId(_id);
 
             const result = await db.collection("DonHang").deleteOne({ _id: objectId });
 
@@ -61,7 +62,7 @@ const donHangController = {
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
-    }
+    },
 };
 
 module.exports = donHangController;

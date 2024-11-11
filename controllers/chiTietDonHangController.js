@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 
 const chiTietDonHangController = {
     getAllChiTietDonHang: async (req, res, client) => {
@@ -28,12 +28,13 @@ const chiTietDonHangController = {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
-            const objectId = new ObjectId(_id)
+            delete updatedData._id;
 
-            const result = await db.collection("ChiTietDonHang").updateOne(
-                { _id: objectId },
-                { $set: updatedData }
-            );
+            const objectId = new ObjectId(_id);
+
+            const result = await db
+                .collection("ChiTietDonHang")
+                .updateOne({ _id: objectId }, { $set: updatedData });
 
             if (result.matchedCount === 0) {
                 return res.status(404).json({ message: "ChiTietDonHang not found" });
@@ -50,7 +51,7 @@ const chiTietDonHangController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const objectId = new ObjectId(_id)
+            const objectId = new ObjectId(_id);
 
             const result = await db.collection("ChiTietDonHang").deleteOne({ _id: objectId });
 
@@ -62,8 +63,7 @@ const chiTietDonHangController = {
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
-    }
-
+    },
 };
 
 module.exports = chiTietDonHangController;

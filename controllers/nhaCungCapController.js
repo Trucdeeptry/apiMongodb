@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 const nhaCungCapController = {
     getAllNhaCungCap: async (req, res, client) => {
         try {
@@ -25,14 +25,15 @@ const nhaCungCapController = {
     updateNhaCungCap: async (req, res, client) => {
         try {
             const db = client.db("QL_OCake");
-            const {_id } = req.params; // Assumes the id is passed as a URL parameter
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
             const updatedData = req.body;
-            const objectId = new ObjectId(_id)
+            delete updatedData._id;
 
-            const result = await db.collection("NhaCungCap").updateOne(
-                {_id:objectId },
-                { $set: updatedData }
-            );
+            const objectId = new ObjectId(_id);
+
+            const result = await db
+                .collection("NhaCungCap")
+                .updateOne({ _id: objectId }, { $set: updatedData });
 
             if (result.matchedCount === 0) {
                 return res.status(404).json({ message: "NhaCungCap not found" });
@@ -49,9 +50,9 @@ const nhaCungCapController = {
         try {
             const db = client.db("QL_OCake");
             const { _id } = req.params; // Assumes the id is passed as a URL parameter
-            const objectId = new ObjectId(_id)
+            const objectId = new ObjectId(_id);
 
-            const result = await db.collection("NhaCungCap").deleteOne({_id:objectId });
+            const result = await db.collection("NhaCungCap").deleteOne({ _id: objectId });
 
             if (result.deletedCount === 0) {
                 return res.status(404).json({ message: "NhaCungCap not found" });
@@ -61,7 +62,7 @@ const nhaCungCapController = {
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
-    }
+    },
 };
 
 module.exports = nhaCungCapController;
