@@ -5,6 +5,8 @@ const router = express.Router();
 
 module.exports = (client) => {
     router.get("/", (req, res) => gioHangController.getAllGioHang(req, res, client));
+    router.get("/:ma_kh", (req, res) => gioHangController.getGioHangByMAKH(req, res, client));
+
     router.post("/", (req, res) => gioHangController.addGioHang(req, res, client));
 
     // Update a product by ma_sp

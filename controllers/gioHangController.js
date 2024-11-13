@@ -9,6 +9,16 @@ const gioHangController = {
             res.status(500).json({ error: err.message });
         }
     },
+    getGioHangByMAKH: async (req, res, client) => {
+        try {
+            const db = client.db("QL_OCake");
+            const { ma_kh } = req.params; // Lấy ma_kh từ URL
+            const gioHangs = await db.collection("GioHang").find({ ma_kh }).toArray();
+            res.status(200).json(gioHangs);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    },
     // Add a new GioHang
     addGioHang: async (req, res, client) => {
         try {
