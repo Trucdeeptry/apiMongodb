@@ -12,6 +12,9 @@ module.exports = (client) => {
 
     // Delete a product by ma_sp
     router.delete("/:_id", (req, res) => donHangController.deleteDonHang(req, res, client));
+    router.patch("/:_id", async (req, res) => {
+        await donHangController.patchDonHang(req, res, client);
+    });
+
     return router;
 };
-

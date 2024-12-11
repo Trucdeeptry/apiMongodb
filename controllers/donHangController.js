@@ -63,6 +63,28 @@ const donHangController = {
             res.status(500).json({ error: err.message });
         }
     },
+    // patch
+    patchDonHang: async (req, res, client) => {
+        try {
+            const db = client.db("QL_OCake");
+            const { _id } = req.params; // Assumes the id is passed as a URL parameter
+            const objectId = new ObjectId(_id);
+    
+            const patchData = req.body;
+    
+            const result = await db
+                .collection("DonHang")
+                .updateOne({ _id: objectId }, { $set: patchData });
+    
+            if (result.matchedCount === 0) {
+                return res.status(404).json({ message: "DonHang not found" });
+            }
+    
+            res.status(200).json({ message: "DonHang updated successfully", result });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }
 };
 
 module.exports = donHangController;
